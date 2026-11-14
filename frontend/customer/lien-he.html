@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="../css/chung.css">
+  <link rel="stylesheet" href="../css/khach.css">
+  <link rel="stylesheet" href="../css/tien-ich.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect x='4' y='4' width='10' height='22' fill='none' stroke='%23e2810f' stroke-width='3'/%3E%3Cpath d='M14 4 L26 12 L26 18 L14 26' fill='none' stroke='%23e2810f' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<meta name="description" content="Thông tin liên hệ Công ty TNHH Kỹ thuật ABA — địa chỉ, số điện thoại, email hỗ trợ tư vấn kỹ thuật và đặt hàng." />
+<title>Liên hệ — ABA Technical</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../config.js"></script>
+</head>
+<body data-page="lien-he">
+
+<div id="header-mount"></div>
+
+<main class="noi-dung-cach-dau">
+  <span class="eyebrow">Kết nối với chúng tôi</span>
+  <h1 class="page-title">Liên hệ</h1>
+  <p class="lead">Chọn đúng loại yêu cầu để ABA xử lý nhanh hơn. Báo giá không còn gửi tại đây vì giá bán đã hiển thị trực tiếp trên trang sản phẩm.</p>
+
+  <div class="grid-2">
+    <div class="panel" data-label="Thông tin liên hệ">
+      <div class="contact-info-row">📍 <div><b>Văn phòng Hà Nội</b>A2 Ngõ 164, Đường Nguyễn Văn Cừ, P. Bồ Đề, Q. Long Biên, Hà Nội</div></div>
+      <div class="contact-info-row">📍 <div><b>VPĐD Hải Phòng</b>2K Phan Đình Phùng, P. Hạ Lý, Q. Hồng Bàng, TP. Hải Phòng</div></div>
+      <div class="contact-info-row">☎️ <div><b>Điện thoại</b>(024) 3873 8055</div></div>
+      <div class="contact-info-row">✉️ <div><b>Email</b>namktaba@gmail.com</div></div>
+    </div>
+
+    <div class="panel" data-label="Gửi yêu cầu">
+      <div class="field"><label class="field-label">Họ tên</label><input id="cName" /></div>
+      <div class="field"><label class="field-label">Số điện thoại</label><input id="cPhone" /></div>
+      <div class="field"><label class="field-label">Công ty (không bắt buộc)</label><input id="cCompany" /></div>
+      <div class="field"><label class="field-label">Loại yêu cầu</label><select id="cType">
+        <option value="product_inquiry">🔍 Hỏi sản phẩm</option>
+        <option value="technical_advice">🔧 Tư vấn kỹ thuật</option>
+        <option value="warranty">🛡️ Bảo hành / Đổi trả</option>
+        <option value="complaint">⚠️ Khiếu nại</option>
+      </select></div>
+      <div class="field" id="cOrderWrap" style="display:none"><label class="field-label">Đơn đã giao</label><input id="cOrderSearch" type="search" autocomplete="off" placeholder="🔍 Dán hoặc gõ mã đơn để tìm nhanh" style="margin-bottom:6px" /><select id="cOrder"><option value="">— Chọn đơn đã giao —</option></select><p id="cOrderHint" style="font-size:11.5px;color:var(--steel);margin:5px 0 0"></p></div>
+      <div class="field" id="cProductWrap"><label class="field-label">Sản phẩm liên quan</label><input id="cProductSearch" type="search" autocomplete="off" placeholder="🔍 Gõ mã sản phẩm để tìm nhanh (hoặc chọn trong danh sách bên dưới)" style="margin-bottom:6px" /><select id="cProduct"><option value="">— Chọn sản phẩm —</option></select><p id="cProductHint" style="font-size:11.5px;color:var(--steel);margin:5px 0 0"></p></div>
+      <div class="field" id="cWarrantyProductsWrap" style="display:none"><label class="field-label">Sản phẩm cần bảo hành / đổi trả</label><div id="cWarrantyProducts"></div><p style="font-size:11.5px;color:var(--steel);margin:6px 0 0">Có thể chọn nhiều sản phẩm trong cùng một đơn. Mỗi sản phẩm ghi riêng số lượng lỗi và tình trạng.</p></div>
+      <div class="field"><label class="field-label">Nội dung yêu cầu</label><textarea id="cNote" rows="4" placeholder="Mô tả rõ vấn đề bạn cần ABA hỗ trợ..."></textarea></div>
+      <div class="field"><label class="field-label">Ảnh minh họa (nếu cần)</label><input id="cImages" type="file" accept="image/jpeg,image/png,image/webp" multiple /><p style="font-size:11.5px;color:var(--steel);margin:5px 0 0">Có thể chọn tối đa 3 ảnh, mỗi ảnh tối đa 5MB. Chỉ đăng ảnh sản phẩm/lỗi cần ABA xem.</p></div>
+      <button class="btn" id="cSubmit">Gửi yêu cầu</button>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><b>Công ty TNHH Kỹ thuật ABA</b><br>A2 Ngõ 164, Đường Nguyễn Văn Cừ, P. Bồ Đề, Q. Long Biên, Hà Nội</div>
+    <div><b>Liên hệ</b><br>ĐT: (024) 3873 8055<br>Email: namktaba@gmail.com</div>
+    <div><b>Đại lý ủy quyền</b><br>NOK · Freudenberg · Trelleborg · NAK</div>
+  </div>
+</footer>
+<script type="module" src="../js/dung-chung/khoi-tao-dau-trang.js"></script>
+<script type="module" src="js/lien-he.js"></script>
+</body>
+</html>

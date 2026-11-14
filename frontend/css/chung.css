@@ -1,0 +1,474 @@
+/* ============================================================
+   CSS DÙNG CHUNG cho MỌI trang: màu/biến (:root), bố cục, header, footer, nút, ô nhập, bảng, hộp thoại.
+   Thứ tự nạp trong HTML: chung.css → (khach.css tuỳ khu vực) → tien-ich.css
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  --z-modal: 3000;
+  --z-toast: 3200;
+  --graphite: #182230;
+  --steel: #3a4a5e;
+  --paper: #eef1f5;
+  --panel: #ffffff;
+  --blueprint: #2b5f8a;
+  --blueprint-soft: #e3edf5;
+  --amber: #e2810f;
+  --amber-soft: #fdf1e1;
+  --ok: #2f8f5b;
+  --ok-soft: #e6f4ec;
+  --danger: #c8503f;
+  --danger-soft: #fbe9e6;
+  --line: #ccd6e0;
+  --line-soft: #e2e8ee;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+* { box-sizing: border-box; }
+/* [SỬA LỖI TOÀN CỤC] input[type=radio]/checkbox từng bị các rule "input, select { width:100% }"
+   (không được scope) kéo giãn cả hitbox ra full chiều ngang label. Rule specificity cao hơn này
+   đặt ngay từ đầu để luôn thắng, không phải sửa từng nơi. Không đụng input[type=range]. */
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  flex: none;
+}
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--graphite);
+  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+a { color: inherit; text-decoration: none; }
+/* ============================================================
+   BO CUC CHUNG
+   CSS dung chung sau khi tai cau truc lai toan bo project.
+   ============================================================ */
+/* ============================================================
+   LAYOUT — header/nav, footer, khung bố cục dùng chung mọi trang.
+   ============================================================ */
+/* ---------- Header / Nav ---------- */
+header.site-header {
+  background: var(--graphite);
+  color: #fff;
+  border-bottom: 3px solid var(--amber);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.header-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+.brand {
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.brand .mark { width: 30px; height: 30px; flex-shrink: 0; }
+.brand small {
+  display: block;
+  font-weight: 500;
+  font-size: 10.5px;
+  color: #9fb0c4;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+nav.main-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+}
+nav.main-nav a {
+  padding: 9px 14px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #cfd9e4;
+  white-space: nowrap;
+}
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+/* .acct-link dùng chung cho cả trang khách hàng (huy-hieu-tai-khoan.js) và khu nhân viên (nhan-vien-chung.js)
+   để 2 bên luôn giống hệt nhau (icon nhỏ + chữ, giống mục "🛒 Giỏ hàng" cạnh nó). */
+.acct-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #cfd9e4;
+}
+.acct-link:hover,
+.acct-link.active {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+.acct-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--amber), #a85c07);
+  color: #fff;
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .nav-cart-link khai báo tự đủ (không phụ thuộc nơi đặt), y hệt .acct-link, để không lệch cỡ chữ
+   khi nằm ngoài <nav class="main-nav">. */
+.nav-cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #cfd9e4;
+}
+.nav-cart-link:hover,
+.nav-cart-link.active {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+.nav-cart-badge {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--amber);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1;
+}
+/* ---------- Header actions: giỏ hàng + tài khoản ---------- */
+.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+@media (max-width: 900px) {
+  .header-inner { flex-wrap: wrap; }
+  .header-actions { order: 3; width: 100%; justify-content: flex-end; margin-top: 4px; }
+}
+/* ---------- Khung nội dung / tiêu đề trang ---------- */
+main { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+.section { padding: 48px 0; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--blueprint);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+  display: block;
+}
+h1.page-title { font-size: 30px; margin: 0 0 10px; letter-spacing: -0.02em; }
+h2.section-title-lg { font-size: 24px; margin: 0 0 6px; letter-spacing: -0.01em; }
+p.lead { color: var(--steel); font-size: 15.5px; line-height: 1.6; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 720px) {
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  h1.page-title { font-size: 24px; }
+}
+/* ---------- Footer ---------- */
+footer.site-footer {
+  background: var(--graphite);
+  color: #b7c2d0;
+  padding: 32px 24px;
+  margin-top: 40px;
+  border-top: 3px solid var(--amber);
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+}
+.footer-inner b { color: #fff; }
+/* ============================================================
+   THANH PHAN GIAO DIEN DUNG CHUNG
+   CSS dung chung sau khi tai cau truc lai toan bo project.
+   ============================================================ */
+/* ============================================================
+   COMPONENTS — thành phần giao diện dùng chung từ 2 trang trở lên
+   (khách hàng lẫn nhân viên). Đặc thù riêng 1 trang → xem css/pages/*
+   hoặc css/staff.css.
+   ============================================================ */
+/* ---------- Panel / khung nền trắng bo góc (dùng chung) ---------- */
+.panel { background: var(--panel); border: 1px solid var(--line); position: relative; }
+.panel[data-label]::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--steel);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+/* ---------- Button ---------- */
+.btn {
+  display: inline-block;
+  background: var(--amber);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.btn:hover { background: #c96f0c; }
+.btn.blue { background: var(--blueprint); }
+.btn.blue:hover { background: #204a6b; }
+.btn.ghost { background: transparent; color: var(--graphite); border: 1.5px solid var(--line); }
+.btn.ghost:hover { border-color: var(--blueprint); color: var(--blueprint); }
+.btn.small { padding: 6px 11px; font-size: 12px; }
+/* ---------- Form field (input/select/textarea + nhãn) ---------- */
+.field { margin-bottom: 12px; }
+label.field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--steel);
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1.5px solid var(--line);
+  font-size: 13.5px;
+  font-family: var(--sans);
+  background: #fff;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blueprint);
+}
+.row { display: flex; gap: 10px; }
+/* ---------- Bảng dữ liệu ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--steel);
+  padding: 10px 12px;
+  background: var(--blueprint-soft);
+}
+td { padding: 10px 12px; border-top: 1px solid var(--line-soft); }
+/* ---------- Badge / tag / chip — họ pill nhỏ dùng chung khắp site.
+   Gộp phần khung (font-size, weight, padding, border-radius) về 1 chỗ; mỗi biến thể chỉ khai
+   báo riêng cặp màu nền/chữ của mình, tránh lặp lại toàn bộ rule như trước. ---------- */
+.tag,
+.stock-badge,
+.badge,
+.role-badge,
+.refusal-warn,
+.nav-badge {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.tag {
+  font-size: 10.5px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--blueprint-soft);
+  color: var(--blueprint);
+  letter-spacing: .03em;
+}
+.stock-badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+.stock-badge.ok { background: var(--ok-soft); color: var(--ok); }
+.stock-badge.low { background: var(--amber-soft); color: var(--amber); }
+.stock-badge.out { background: var(--danger-soft); color: var(--danger); }
+.badge { font-size: 10.5px; padding: 3px 8px; border-radius: 20px; }
+.badge.pending,
+.badge.new {
+  background: #eee;
+  color: #666;
+}
+.badge.confirmed { background: var(--blueprint-soft); color: var(--blueprint); }
+.badge.processing,
+.badge.shipped,
+.badge.partially_delivered {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.badge.completed { background: var(--ok-soft); color: var(--ok); }
+.badge.cancelled { background: var(--danger-soft); color: var(--danger); }
+.badge.item-pending { background: #eee; color: #666; }
+.badge.item-delivered { background: var(--ok-soft); color: var(--ok); }
+.badge.item-refused { background: var(--danger-soft); color: var(--danger); }
+.badge.item-partially_delivered { background: var(--amber-soft); color: var(--amber); }
+.role-badge {
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--blueprint-soft);
+  color: var(--blueprint);
+}
+/* Cảnh báo khách hay hủy/từ chối nhận hàng — tông amber cảnh báo vừa phải, không dùng đỏ gắt (dễ
+   nhầm với lỗi hệ thống). */
+.refusal-warn {
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  color: #8a5a12;
+  background: #fdf1e1;
+}
+.nav-badge {
+  background: #e74c3c;
+  color: #fff;
+  font-size: 10.5px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+/* Chip lọc dạng nút bấm-chọn — dùng ở danh-muc.html (lọc hãng) và khu nhân viên (lọc trạng thái
+   đơn hàng, xem staff.css .status-filter-row). */
+.cat-chip {
+  padding: 7px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  color: var(--steel);
+}
+.cat-chip.active { border-color: var(--amber); background: var(--amber-soft); color: var(--graphite); }
+/* ---------- Modal ---------- */
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,16,24,.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.modal {
+  margin: auto;
+  background: #fff;
+  border-radius: 6px;
+  padding: 26px;
+  width: 100%;
+  max-width: 420px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+/* Các nút cuối popup luôn nằm trong vùng nhìn thấy khi popup dài. */
+.modal > .row:last-child {
+  position: sticky;
+  bottom: -26px;
+  background: #fff;
+  padding-top: 12px;
+  padding-bottom: 4px;
+  margin-bottom: -26px;
+  z-index: 2;
+}
+/* ---------- Toast (thông báo nổi góc màn hình) ---------- */
+.toast {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: var(--graphite);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 4px;
+  font-size: 13px;
+  border-left: 3px solid var(--amber);
+  z-index: var(--z-toast);
+}
+/* ---------- Empty state (không có dữ liệu) ---------- */
+.empty { text-align: center; color: var(--steel); padding: 30px; font-size: 13px; }
+.empty .big { font-size: 34px; display: block; margin-bottom: 8px; }
+/* ---------- Giỏ hàng (dong-bo-gio-hang.js) — dùng chung mọi trang khách hàng ---------- */
+.cart-add-btn {
+  background: var(--graphite) !important;
+  color: #fff !important;
+  border: 1px solid var(--graphite) !important;
+  font-weight: 800;
+  transition: background .15s, transform .1s;
+}
+.cart-add-btn:hover:not(:disabled) { background: #0e1826 !important; transform: translateY(-1px); }
+.cart-add-btn:disabled { opacity: .4; cursor: not-allowed; }
+/* Khung "giờ mở cửa"/thông báo giao hàng — dùng ở cả trang chi tiết sản phẩm và giỏ hàng */
+.gh-hours-notice {
+  background: var(--amber-soft); color: #8a5a12;
+  font-size: 12px;
+  padding: 10px 13px;
+  border-radius: 6px;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+/* HEADER DÙNG CHUNG — không để layout staff giới hạn chiều rộng của header. */
+body > #root { width: 100%; max-width: none; margin: 0; }
+body > #root > .site-header { width: 100%; box-sizing: border-box; }

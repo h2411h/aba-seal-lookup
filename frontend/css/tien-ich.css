@@ -1,0 +1,38 @@
+/* ============================================================
+   CÁC LỚP TIỆN ÍCH nhỏ (dùng ở cả hai khu vực). Nạp SAU CÙNG để ghi đè như thiết kế gốc.
+   Thứ tự nạp trong HTML: chung.css → (khach.css tuỳ khu vực) → tien-ich.css
+   ============================================================ */
+/* ============================================================
+   CAC LOP DUNG CHUNG CHUYEN TU INLINE STYLE
+   ============================================================ */
+.noi-dung-cach-dau { padding-top: 28px; }
+.mo-ta-cach-duoi { margin-bottom: 22px; }
+.khung-bat-dau { text-align: center; padding: 40px 24px; }
+.nut-cach-tren { margin-top: 10px; }
+.lien-ket-nhan-vien { color: #7a8a9e; font-size: 11.5px; }
+.mo-ta-cach-duoi-26 { margin-bottom: 26px; }
+.khung-cach-tren-30 { margin-top: 30px; }
+.mo-ta-khong-cach-duoi { margin-bottom: 0; }
+.khung-cach-tren-24 { margin-top: 24px; }
+.khung-tai-khoan { max-width: 480px; margin: 0 auto; }
+/* Trang Kho: lịch sử giao dịch được phân trang */
+.trans-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0 22px;
+  padding: 10px 12px;
+  background: #f7f9fb;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+}
+.trans-pagination-info { color: var(--steel); font-size: 12px; }
+.trans-pagination-buttons { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.trans-page-btn { min-width: 34px; padding: 6px 9px; }
+.trans-page-btn.active { background: var(--blueprint); border-color: var(--blueprint); color: #fff; }
+.trans-page-dots { padding: 0 3px; color: var(--steel); }
+@media (max-width:800px) {
+  .trans-pagination { align-items: flex-start; }
+}
