@@ -1,0 +1,8 @@
+TAI CAU TRUC CSS
+
+- Gop base.css, layout.css, components.css, staff.css va CSS tung trang vao frontend/style.css.
+- Tat ca HTML chi con goi frontend/style.css (hoac ../style.css trong frontend/staff).
+- Loai bo thu muc frontend/css sau khi da gop.
+- Chuyen cac inline style hien co sang class CSS dung chung.
+- Khong thay doi JavaScript, database hay logic nghiep vu.
+- CSS duoc format nhieu dong, moi thuoc tinh mot dong de de doc va bao tri.
